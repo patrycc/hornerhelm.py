@@ -12,12 +12,27 @@ def get_image(path):
         return image
 
 class Title(object):
-        nein = "nein"
+        screenpls = 2
         def __init__(self):
+
+                pygame.init()
+
+                titleClock = pygame.time.Clock()
+                
                 screen = pygame.display.set_caption("Hornerhelm [conceptual]")
                 screen = pygame.display.set_mode((640, 480))
                 screen.blit(get_image('img/title_bg.png'), (0, 0))
 
-                for event in pygame.event.get():
-                        if event.type == pygame.QUIT:
-                                running = False
+                titleLoop = True
+
+                while titleLoop:
+                        for event in pygame.event.get():
+                                if event.type == pygame.QUIT:
+                                        titleLoop = False
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                                if event.button == 1: # left click
+                                        titleLoop = False
+                                      
+                        print("title")
+                        pygame.display.flip()
+                        titleClock.tick(60)

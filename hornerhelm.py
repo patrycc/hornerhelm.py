@@ -8,12 +8,16 @@ clock = pygame.time.Clock()
 
 running = True
 
-myTitle = title.Title()
+showScreen = 1
 
 while running:
         for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         running = False
+        print(showScreen)
+        if (showScreen == 1):
+                myTitle = title.Title()
+                showScreen = myTitle.screenpls
 
         pygame.display.flip()
         clock.tick(60)
