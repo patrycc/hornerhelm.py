@@ -11,6 +11,10 @@ def get_image(path):
                 _image_library[path] = image
         return image
 
+def check_click(c):
+        print(c)
+        
+
 class Title(object):
         screenpls = 2
         def __init__(self):
@@ -20,7 +24,7 @@ class Title(object):
                 titleClock = pygame.time.Clock()
                 
                 screen = pygame.display.set_caption("Hornerhelm [conceptual]")
-                screen = pygame.display.set_mode((640, 480))
+                screen = pygame.display.set_mode((640, 640))
                 screen.blit(get_image('img/title_bg.png'), (0, 0))
 
                 titleLoop = True
@@ -31,8 +35,8 @@ class Title(object):
                                         titleLoop = False
                         if event.type == pygame.MOUSEBUTTONDOWN:
                                 if event.button == 1: # left click
-                                        titleLoop = False
+                                        #titleLoop = False
+                                        check_click(event.pos)
                                       
-                        print("title")
                         pygame.display.flip()
                         titleClock.tick(60)

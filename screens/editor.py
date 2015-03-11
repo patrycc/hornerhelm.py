@@ -20,7 +20,8 @@ class Editor(object):
                 editorClock = pygame.time.Clock()
                 
                 screen = pygame.display.set_caption("Hornerhelm [conceptual]")
-                screen = pygame.display.set_mode((640, 480))
+                screen = pygame.display.set_mode((640, 640))
+                screen.blit(get_image('img/editor_bg.png'), (0, 0))
 
                 editorLoop = True
 
