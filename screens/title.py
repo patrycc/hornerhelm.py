@@ -35,7 +35,7 @@ class Title(object):
                                         titleLoop = False
                         if event.type == pygame.MOUSEBUTTONDOWN:
                                 if event.button == 1: # left click
-                                        #titleLoop = False
+                                        titleLoop = False
                                         check_click(event.pos)
                                       
                         pygame.display.flip()

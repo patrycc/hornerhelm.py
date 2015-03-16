@@ -1,5 +1,7 @@
 import pygame
 import os
+from utils import buttons
+
 
 _image_library = {}
 def get_image(path):
@@ -10,6 +12,11 @@ def get_image(path):
                 image = pygame.image.load(canonicalized_path)
                 _image_library[path] = image
         return image
+
+def draw_buttons(buttons, screen):
+        for b in buttons:
+                button = buttons[b]
+                screen.blit(get_image('img/icon/'+button[2]), (button[0],button[1]))
 
 class Editor(object):
         screenpls = 1
@@ -25,6 +32,9 @@ class Editor(object):
 
                 editorLoop = True
 
+                buttonspls = buttons.editor
+                draw_buttons(buttonspls, screen)
+
                 while editorLoop:
                         for event in pygame.event.get():
                                 if event.type == pygame.QUIT:
@@ -32,7 +42,5 @@ class Editor(object):
                         if event.type == pygame.MOUSEBUTTONDOWN:
                                 if event.button == 1: # left click
                                         editorLoop = False
-                                      
-                        print("editor")
                         pygame.display.flip()
                         editorClock.tick(60)
