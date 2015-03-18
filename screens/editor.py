@@ -18,6 +18,15 @@ def draw_buttons(buttons, screen):
                 button = buttons[b]
                 screen.blit(get_image('img/icon/'+button[2]), (button[0],button[1]))
 
+def click_button(posi, buttons):
+        x = posi[0]
+        y = posi[1]
+
+        for b in buttons:
+                button = buttons[b]
+                if x > button[0] and y > button[1] and x < (button[0]+90) and y < (button[1]+90):
+                        print(button[2])
+
 class Editor(object):
         screenpls = 1
         def __init__(self):
@@ -27,7 +36,7 @@ class Editor(object):
                 editorClock = pygame.time.Clock()
                 
                 screen = pygame.display.set_caption("Hornerhelm [conceptual]")
-                screen = pygame.display.set_mode((640, 640))
+                screen = pygame.display.set_mode((540, 540))
                 screen.blit(get_image('img/editor_bg.png'), (0, 0))
 
                 editorLoop = True
@@ -41,6 +50,8 @@ class Editor(object):
                                         titleLoop = False
                         if event.type == pygame.MOUSEBUTTONDOWN:
                                 if event.button == 1: # left click
-                                        editorLoop = False
+                                        #editorLoop = False
+                                        click_button(event.pos, buttonspls)
+                                        
                         pygame.display.flip()
                         editorClock.tick(60)

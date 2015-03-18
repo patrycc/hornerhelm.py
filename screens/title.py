@@ -24,7 +24,7 @@ class Title(object):
                 titleClock = pygame.time.Clock()
                 
                 screen = pygame.display.set_caption("Hornerhelm [conceptual]")
-                screen = pygame.display.set_mode((640, 640))
+                screen = pygame.display.set_mode((540, 540))
                 screen.blit(get_image('img/title_bg.png'), (0, 0))
 
                 titleLoop = True
