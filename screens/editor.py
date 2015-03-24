@@ -7,7 +7,9 @@ einherjar = [
 ]
 
 active_e = 0
-buttonspls = buttons.editor
+buttonspls = buttons.editor_menu
+
+clicked_pos = []
 
 _image_library = {}
 def get_image(path):
@@ -27,23 +29,28 @@ def draw_buttons(buttons, screen):
                 elif button[3] == 2:
                         screen.blit(get_image('img/icon/nein.png'), (button[0],button[1]))
 
-def click_button(posi, buttons):
+def click_button(pos, buttons):
         global einherjar
         global active_e
-        x = posi[0]
-        y = posi[1]
+        global clicked_pos
 
-        if len(einherjar[active_e]) == 5 and len(einherjar) < 5:
-                einherjar.append([])
-                active_e = active_e + 1
+        x = pos[0]
+        y = pos[1]
 
-        for b in buttons:
-                button = buttons[b]
-                if x > button[0] and y > button[1] and x < (button[0]+90) and y < (button[1]+90) and button[3] == 1:
-                        if len(einherjar[active_e]) < 5:
-                                einherjar[active_e].append(b)
-        print(einherjar)
-        print(len(einherjar))
+        if clicked_pos is not pos:
+                clicked_pos = pos
+
+                if len(einherjar[active_e]) == 5 and len(einherjar) < 5:
+                        einherjar.append([])
+                        active_e = active_e + 1
+
+                for b in buttons:
+                        button = buttons[b]
+                        if x > button[0] and y > button[1] and x < (button[0]+90) and y < (button[1]+90) and button[3] == 1:
+                                if len(einherjar[active_e]) < 5:
+                                        einherjar[active_e].append(b)
+                print(einherjar)
+                print(len(einherjar))
 
 class Editor(object):
         screenpls = 1
@@ -71,4 +78,4 @@ class Editor(object):
                                         click_button(event.pos, buttonspls)
                                         
                         pygame.display.flip()
-                        editorClock.tick(10)
+                        editorClock.tick(60)

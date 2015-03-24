@@ -1,7 +1,4 @@
-import pygame
-import os
-
-editor = {
+editor_menu = {
 "W" : [0,450, "war.png",1],
 "P" : [90,450, "guard.png",1],
 "M" : [180,450, "might.png",1],
@@ -10,7 +7,6 @@ editor = {
 "accept" : [450,450, "accept.png",2]
 }
 
-class Buttons(object):
-        
-        def __init__(self):
-                pygame.init()
+editor_row = {
+"1" : []
+}
