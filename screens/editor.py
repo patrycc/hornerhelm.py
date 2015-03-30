@@ -8,6 +8,8 @@ einherjar = [
 
 active_e = 0
 buttonspls = buttons.editor_menu
+rowspls = buttons.editor_rows
+gbs = buttons.gbs
 
 clicked_pos = []
 
@@ -21,15 +23,31 @@ def get_image(path):
                 _image_library[path] = image
         return image
 
-def draw_buttons(buttons, screen):
-        for b in buttons:
-                button = buttons[b]
+def redraw(screen):
+        screen.fill((0, 0, 0))
+        screen.blit(get_image('img/editor_bg.png'), (0, 0))
+
+        einzahler = 0
+
+        for ein in einherjar:
+                for r in range(0,5):
+                        screen.blit(get_image('img/icon/select/empty.png'), (r*gbs,(einzahler*gbs)) )
+                for e in range(0,len(ein)):
+                        temp_e = einherjar[einzahler][e]
+                        screen.blit(get_image('img/icon/select/'+temp_e+'.png'), (e*gbs,(einzahler*gbs)) )
+                screen.blit(get_image('img/icon/nein.png'), (5*gbs,(einzahler*gbs)) )
+                einzahler = einzahler +1
+                                
+
+        for b in buttonspls:
+                button = buttonspls[b]
                 if button[3] == 1:
                         screen.blit(get_image('img/icon/'+button[2]), (button[0],button[1]))
                 elif button[3] == 2:
                         screen.blit(get_image('img/icon/nein.png'), (button[0],button[1]))
+        
 
-def click_button(pos, buttons):
+def click_button(pos, buttons, screen):
         global einherjar
         global active_e
         global clicked_pos
@@ -49,8 +67,10 @@ def click_button(pos, buttons):
                         if x > button[0] and y > button[1] and x < (button[0]+90) and y < (button[1]+90) and button[3] == 1:
                                 if len(einherjar[active_e]) < 5:
                                         einherjar[active_e].append(b)
+
+                redraw(screen)
+                
                 print(einherjar)
-                print(len(einherjar))
 
 class Editor(object):
         screenpls = 1
@@ -62,11 +82,10 @@ class Editor(object):
                 
                 screen = pygame.display.set_caption("Hornerhelm [conceptual]")
                 screen = pygame.display.set_mode((540, 540))
-                screen.blit(get_image('img/editor_bg.png'), (0, 0))
 
                 editorLoop = True
 
-                draw_buttons(buttonspls, screen)
+                redraw(screen)
 
                 while editorLoop:
                         for event in pygame.event.get():
@@ -75,7 +94,7 @@ class Editor(object):
                         if event.type == pygame.MOUSEBUTTONDOWN:
                                 if event.button == 1: # left click
                                         #editorLoop = False
-                                        click_button(event.pos, buttonspls)
+                                        click_button(event.pos, buttonspls, screen)
                                         
                         pygame.display.flip()
                         editorClock.tick(60)
