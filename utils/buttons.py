@@ -9,12 +9,3 @@ editor_menu = {
 "H" : [360,450, "heal.png",1],
 "accept" : [450,450, "accept.png",2]
 }
-
-#row id, position, row complete(default = 0, 1=yes, 2=deactivated)
-editor_rows = [
-[0,0],
-[90,0],
-[180,0],
-[270,0],
-[360,0]
-]

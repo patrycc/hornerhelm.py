@@ -6,10 +6,10 @@ einherjar = [
 []
 ]
 
-active_e = 0
 buttonspls = buttons.editor_menu
-rowspls = buttons.editor_rows
 gbs = buttons.gbs
+party_validity = False
+active_e = 0
 
 clicked_pos = []
 
@@ -47,10 +47,26 @@ def redraw(screen):
                         screen.blit(get_image('img/icon/nein.png'), (button[0],button[1]))
         
 
+def check_validity():
+        global party_validity
+        global buttonspls
+        buttonspls["accept"][3] = 2
+        valid = True
+        for ein in einherjar:
+                if len(ein) is not 5:
+                        print("is not valid!")
+                        valid = False
+        print(valid)
+        
+        if (valid is True):
+                party_validity = True
+                buttonspls["accept"][3] = 1
+
+
 def click_button(pos, buttons, screen):
         global einherjar
-        global active_e
         global clicked_pos
+        global active_e
 
         x = pos[0]
         y = pos[1]
@@ -58,19 +74,23 @@ def click_button(pos, buttons, screen):
         if clicked_pos is not pos:
                 clicked_pos = pos
 
-                if len(einherjar[active_e]) == 5 and len(einherjar) < 5:
-                        einherjar.append([])
-                        active_e = active_e + 1
-
                 for b in buttons:
                         button = buttons[b]
                         if x > button[0] and y > button[1] and x < (button[0]+90) and y < (button[1]+90) and button[3] == 1:
-                                if len(einherjar[active_e]) < 5:
-                                        einherjar[active_e].append(b)
 
-                redraw(screen)
-                
+                                if len(einherjar[active_e]) == 5 and len(einherjar) < 5 and b is not "accept":
+                                        einherjar.append([])
+                                        active_e = active_e + 1
+
+                                if len(einherjar[active_e]) < 5 and b is not "accept":
+                                        einherjar[active_e].append(b)
+                                
+                                if b == "accept":
+                                        print("OK")
                 print(einherjar)
+
+                check_validity()
+                redraw(screen)
 
 class Editor(object):
         screenpls = 1
